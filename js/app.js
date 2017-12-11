@@ -1,14 +1,9 @@
-// Create Deck
-// GIVEN that the player is on the game page
-// AND the game has not started
-// WHEN I click play game
-// THEN shuffle the deck of 52 cards
 
-// Create deck and cards
 function Card(r, s) {
     this.rank = r
     this.suit = s
-    this.cardName = `${r} of ${s}`;
+    this.cardName = `${r}_of_${s}`
+    this.image = `/Users/eric/BlackJack/images/Cards/png/${r}_of_${s}.png`
 }
 
 suits = ['diamonds', 'clubs', 'hearts', 'spades']
@@ -36,6 +31,43 @@ function shuffle(array) {
     return array;
 }
 
-let myDeck = getDeck();
+let myDeck = shuffle(getDeck());
+console.log(myDeck);
 
-let cardImages = []
+
+let Player = {
+    hand: [],
+    counter: 0,
+    bust: false
+}
+
+let Dealer = {
+    hand: [],
+    counter: 0,
+    bust: false
+}
+
+function giveCards(numberOfTimes){
+    for(i = 0; i < numberOfTimes; i++){
+        Player.hand.unshift(myDeck.pop());
+    }
+    for(i = 0; i < numberOfTimes; i++){
+        Dealer.hand.unshift(myDeck.pop());
+    }
+}
+
+function showPlayerCards(){
+    Player.hand.forEach(function(times){
+        $(`<img src="${times.image}"/>`).appendTo('.player');
+    })
+    Dealer.hand.forEach(function(times){
+        $(`<img src="${times.image}"/>`).appendTo('.gameboard');
+    })
+}
+
+
+function dealCards(){
+    giveCards(2);
+    showPlayerCards();
+    console.log(myDeck);
+}
