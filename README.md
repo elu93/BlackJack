@@ -27,7 +27,7 @@ In version 2, I would like to add a gambling feature that keeps tracks of bets a
 Additionally, I want to add different style of cards that a user may choose from.
 
 # Wireframe
-`![Alt Image Text](https://imgur.com/zbaKfxY)`
+`![image-id](https://imgur.com/zbaKfxY)`
 
 # Workflow Board:
 
