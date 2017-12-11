@@ -13,3 +13,19 @@ https://github.com/elu93/BlackJack
 
 # Trello Link:
 https://trello.com/b/2VzTJxc0/wdi-project-1-blackjack
+
+# List of Technologies
+* Materialize
+* jQuery
+* Microsoft Visual Studio
+* Google Fonts
+* Animate CSS
+
+# Version 2
+
+In version 2, I would like to add a gambling feature that keeps tracks of bets and a player's chips.
+Additionally, I want to add different style of cards that a user may choose from.
+
+# Wireframe
+![](https://imgur.com/zbaKfxY)
+
