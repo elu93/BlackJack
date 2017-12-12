@@ -96,20 +96,27 @@ $('.hit').click(function () {
 })
 
 $('.stay').click(function () {
-    Dealer.hand.push(myDeck.pop());
-    let index = Dealer.hand.length - 1;
-    if (dealerSum < 17) {
-        dealerSum = dealerSum + Dealer.hand[index].value;
-        $(`<img src="${Dealer.hand[index].image}"/>`).appendTo('.dealer-cards');
-    } else if (dealerSum < 21 && dealerSum >= 17) {
-        alert('Dealer cant go any further')
-        return;
-    } else if (dealerSum === 21) {
-        alert('21')
-    } else {
-        alert('Dealer has busted!')
-        return;
-    }
-    console.log(`Dealer's Sum: ${dealerSum}`);
+    dealCardstoDealer();
 })
+
+function dealCardstoDealer(){
+    while(dealerSum < 21){
+        Dealer.hand.push(myDeck.pop());
+        let index = Dealer.hand.length - 1;
+        if (dealerSum < 17) {
+            dealerSum = dealerSum + Dealer.hand[index].value;
+            $(`<img src="${Dealer.hand[index].image}"/>`).appendTo('.dealer-cards');
+        } else if (dealerSum < 21 && dealerSum >= 17) {
+            alert('Dealer cant go any further')
+            return;
+        } else if (dealerSum === 21) {
+            alert('21')
+            return;
+        } else if (dealerSum > 21){
+            alert('Dealer has busted!')
+            return;
+        }
+        console.log(`Dealer's Sum: ${dealerSum}`);
+    } 
+}
 
