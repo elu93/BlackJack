@@ -5,13 +5,12 @@ img {
     border-radius: 5%;
     width: 100px;
     height: 143px;
-
 }
 
 body {
     display: flex;
     justify-content: center;
-    flex-direction: row;
+    flex-direction: column;
     align-content: center;
     margin: auto;
     width: 100vw;
@@ -19,13 +18,19 @@ body {
 
 .player-cards {
     text-align: center;
-
 }
 
 .dealer-cards {
     text-align: center;
 }
 
+.wrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-content: center;
+    margin: auto;
+}
 
 .gameboard {
     width: 60vw;
@@ -54,7 +59,6 @@ body {
     width: 20vw;
     height: 100vh;
     background-color: #ff0000;
-
 }
 
 .dealer-scoreboard {
