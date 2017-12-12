@@ -3,6 +3,9 @@ img {
     margin: 10px;
     background-color: white;
     border-radius: 5%;
+    width: 150px;
+    height: 217px;
+
 }
 
 body {
@@ -10,17 +13,39 @@ body {
     display: flex;
     justify-content: center;
     flex-direction: column;
+    align-content: center;
     margin: auto;
-    width: 50vw;
+    width: 100vw;
+    align-content: center;
 }
 
 .player-cards {
     text-align: center;
 }
 
+.dealer-cards {
+    text-align: center;
+}
+
+
+.gameboard {
+    padding-left: 0px;
+}
+
 .player {
     text-align: center;
-    margin: 50px;
-    width: 50vw;
+    width: 100vw;
+    display: block;
+}
+
+.dealer {
+    text-align: center;
+    width: 100vw;
+    display: block;
+}
+
+.buttons {
+    text-align: center;
+    width: 100vw;
     display: block;
 }

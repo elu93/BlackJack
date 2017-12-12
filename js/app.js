@@ -62,10 +62,10 @@ function giveCards(numberOfTimes) {
 
 function showPlayerCards() {
     Player.hand.forEach(function (times) {
-        $(`<img src="${times.image}"/>`).appendTo('.player');
+        $(`<img src="${times.image}"/>`).appendTo('.player-cards');
     })
     Dealer.hand.forEach(function (times) {
-        $(`<img src="${times.image}"/>`).appendTo('.gameboard');
+        $(`<img src="${times.image}"/>`).appendTo('.dealer-cards');
     })
 }
 
