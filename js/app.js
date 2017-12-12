@@ -66,9 +66,11 @@ function giveCards(numberOfTimes) {
 function showPlayerCards() {
     Player.hand.forEach(function (times) {
         $(`<img class="cardimage" src="${times.image}"/>`).appendTo('.player-cards');
+        $('.player-card-sum').text(`Player's score: ${playerSum}`);
     })
     Dealer.hand.forEach(function (times) {
         $(`<img class="cardimage" src="${times.image}"/>`).appendTo('.dealer-cards');
+        $('.dealer-card-sum').text(`Dealer's score: ${dealerSum}`);
 
     })
 }
@@ -83,8 +85,7 @@ function dealCards() {
     }
     
     console.log(myDeck);
-    console.log(`Player's Sum: ${playerSum}`);
-    console.log(`Dealer's Sum: ${dealerSum}`);
+    
 }
 
 
@@ -98,7 +99,7 @@ $('.hit').click(function () {
         checkforVictory()
         return;
     }
-    console.log(`Player's Sum: ${playerSum}`);
+    $('.player-card-sum').text(`Player's score: ${playerSum}`);
 })
 
 $('.stay').click(function () {
@@ -123,26 +124,29 @@ function dealCardstoDealer() {
             alert('Dealer has busted!')
             return;
         }
-        console.log(`Dealer's Sum: ${dealerSum}`);
+        $('.dealer-card-sum').text(`Player's score: ${dealerSum}`);
     }
 }
 
 function checkforVictory() {
     if (playerSum <= 21 && playerSum > dealerSum) {
         alert('Player wins!');
-        Player.counter =+ 1;
-        console.log(Player.counter);
+        Player.counter = Player.counter + 1;
+        $('.player-score').text(`Player's wins: ${Player.counter}`);
     } else if (dealerSum <= 21 && dealerSum > playerSum) {
         alert('Dealer wins!');
-        Dealer.counter =+ 1;
+        Dealer.counter = Dealer.counter + 1;
+        $('.dealer-score').text(`Dealer's score: ${Dealer.counter}`);
         console.log(Dealer.counter);
     } else if (dealerSum > 21) {
         alert('Player wins!');
-        Player.counter =+ 1;
+        Player.counter = Player.counter + 1;
+        $('.player-score').text(`Player's score: ${Player.counter}`);
         console.log(Player.counter);
     } else if (playerSum > 21) {
         alert('Dealer wins!');
-        Dealer.counter =+ 1;
+        Dealer.counter = Dealer.counter + 1;
+        $('.dealer-score').text(`Dealer's score: ${Dealer.counter}`);
         console.log(Dealer.counter);
     } else {
         alert('Its a tie');
