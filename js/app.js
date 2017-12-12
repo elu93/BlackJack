@@ -65,10 +65,10 @@ function giveCards(numberOfTimes) {
 
 function showPlayerCards() {
     Player.hand.forEach(function (times) {
-        $(`<img src="${times.image}"/>`).appendTo('.player-cards');
+        $(`<img class="cardimage" src="${times.image}"/>`).appendTo('.player-cards');
     })
     Dealer.hand.forEach(function (times) {
-        $(`<img src="${times.image}"/>`).appendTo('.dealer-cards');
+        $(`<img class="cardimage" src="${times.image}"/>`).appendTo('.dealer-cards');
 
     })
 }
@@ -91,7 +91,7 @@ function dealCards() {
 $('.hit').click(function () {
     Player.hand.push(myDeck.pop());
     let index = Player.hand.length - 1;
-    $(`<img src="${Player.hand[index].image}"/>`).appendTo('.player-cards');
+    $(`<img class="cardimage" src="${Player.hand[index].image}"/>`).appendTo('.player-cards');
     playerSum = playerSum + Player.hand[index].value;
     if (playerSum > 21) {
         alert('Player has busted!')
@@ -112,7 +112,7 @@ function dealCardstoDealer() {
         let index = Dealer.hand.length - 1;
         if (dealerSum < 17) {
             dealerSum = dealerSum + Dealer.hand[index].value;
-            $(`<img src="${Dealer.hand[index].image}"/>`).appendTo('.dealer-cards');
+            $(`<img class="cardimage" src="${Dealer.hand[index].image}"/>`).appendTo('.dealer-cards');
         } else if (dealerSum < 21 && dealerSum >= 17) {
             alert('Dealer cant go any further')
             return;
@@ -130,12 +130,20 @@ function dealCardstoDealer() {
 function checkforVictory() {
     if (playerSum <= 21 && playerSum > dealerSum) {
         alert('Player wins!');
+        Player.counter =+ 1;
+        console.log(Player.counter);
     } else if (dealerSum <= 21 && dealerSum > playerSum) {
         alert('Dealer wins!');
+        Dealer.counter =+ 1;
+        console.log(Dealer.counter);
     } else if (dealerSum > 21) {
         alert('Player wins!');
+        Player.counter =+ 1;
+        console.log(Player.counter);
     } else if (playerSum > 21) {
         alert('Dealer wins!');
+        Dealer.counter =+ 1;
+        console.log(Dealer.counter);
     } else {
         alert('Its a tie');
     }
@@ -150,3 +158,22 @@ function checkforBlackJack() {
         Dealer.blackJack = true;
     }
 }
+
+function redealCards () {
+    Player.blackJack = false;
+    Dealer.blackJack = false;
+    Player.hand = [];
+    Dealer.hand = [];
+    playerSum = 0;
+    dealerSum = 0;
+    myDeck = shuffle(getDeck());
+    dealCards();
+}
+
+$('.redeal').click(function () {
+    $('.cardimage').remove();
+    redealCards();
+    console.log(myDeck);
+    console.log(Player.hand);
+    console.log(Dealer.hand);
+})
