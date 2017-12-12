@@ -29,19 +29,21 @@ body {
 
 
 .gameboard {
-    padding-left: 0px;
+    margin-top: 50px;
 }
 
 .player {
     text-align: center;
     width: 100vw;
     display: block;
+    margin: auto;
 }
 
 .dealer {
     text-align: center;
     width: 100vw;
     display: block;
+    margin: auto;
 }
 
 .buttons {

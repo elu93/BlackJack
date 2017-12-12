@@ -23,7 +23,6 @@ ranks = 'A23456789TJQK'
 values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 deck = new Array(suits.length * ranks.length)
 
-
 // nested for loop to create deck of cards
 function getDeck() {
     for (i = 0; i < suits.length; i++) {
@@ -47,6 +46,8 @@ function shuffle(array) {
 }
 
 let myDeck = shuffle(getDeck());
+let dealerSum = 0;
+let playerSum = 0;
 console.log(myDeck);
 dealCards();
 
@@ -57,6 +58,7 @@ function giveCards(numberOfTimes) {
     }
     for (i = 0; i < numberOfTimes; i++) {
         Dealer.hand.push(myDeck.pop());
+        dealerSum = dealerSum + Dealer.hand[i].value;
     }
 }
 
@@ -66,6 +68,7 @@ function showPlayerCards() {
     })
     Dealer.hand.forEach(function (times) {
         $(`<img src="${times.image}"/>`).appendTo('.dealer-cards');
+
     })
 }
 
@@ -74,6 +77,7 @@ function dealCards() {
     giveCards(2);
     showPlayerCards();
     console.log(myDeck);
+    console.log(dealerSum);
 }
 
 
@@ -84,15 +88,20 @@ $('.hit').click(function () {
     console.log(Player);
 })
 
-
-// GIVEN that the player is on the game page
-// AND that a hand has already been dealt
-// WHEN a player clicks stay
-// THEN do not give a player a card
-
 $('.stay').click(function () {
     Dealer.hand.push(myDeck.pop());
-    let index = Player.hand.length - 1;
-    $(`<img src="${Dealer.hand[index].image}"/>`).appendTo('.dealer-cards');
-    console.log(Dealer);
+    let index = Dealer.hand.length - 1;
+    if(dealerSum < 17) {
+        dealerSum = dealerSum + Dealer.hand[index].value;
+        $(`<img src="${Dealer.hand[index].image}"/>`).appendTo('.dealer-cards');
+    } else if(dealerSum < 21 && dealerSum >= 17) {
+        alert('Dealer cant go any further')
+        return;
+    } else if(dealerSum === 21) {
+        alert('21')
+    } else {
+        alert('Dealer has busted!')
+        return;
+    }
+    console.log(dealerSum);
 })
