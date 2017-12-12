@@ -20,7 +20,7 @@ function Card(r, s, v) {
 
 suits = ['diamonds', 'clubs', 'hearts', 'spades']
 ranks = 'A23456789TJQK'
-values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+values = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 deck = new Array(suits.length * ranks.length)
 
 // nested for loop to create deck of cards
@@ -90,6 +90,7 @@ $('.hit').click(function () {
     playerSum = playerSum + Player.hand[index].value;
     if (playerSum > 21) {
         alert('Player has busted!')
+        checkforVictory()
         return;
     }
     console.log(`Player's Sum: ${playerSum}`);
@@ -97,10 +98,11 @@ $('.hit').click(function () {
 
 $('.stay').click(function () {
     dealCardstoDealer();
+    checkforVictory();
 })
 
-function dealCardstoDealer(){
-    while(dealerSum < 21){
+function dealCardstoDealer() {
+    while (dealerSum < 21) {
         Dealer.hand.push(myDeck.pop());
         let index = Dealer.hand.length - 1;
         if (dealerSum < 17) {
@@ -112,11 +114,25 @@ function dealCardstoDealer(){
         } else if (dealerSum === 21) {
             alert('21')
             return;
-        } else if (dealerSum > 21){
+        } else if (dealerSum > 21) {
             alert('Dealer has busted!')
             return;
         }
         console.log(`Dealer's Sum: ${dealerSum}`);
-    } 
+    }
+}
+
+function checkforVictory() {
+    if (playerSum <= 21 && playerSum > dealerSum) {
+        alert('Player wins!');
+    } else if (dealerSum <= 21 && dealerSum > playerSum) {
+        alert('Dealer wins!');
+    } else if (dealerSum > 21) {
+        alert('Player wins!');
+    } else if (playerSum > 21) {
+        alert('Dealer wins!');
+    } else {
+        alert('Its a tie');
+    }
 }
 
