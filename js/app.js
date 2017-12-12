@@ -113,7 +113,7 @@ function dealCardstoDealer() {
             dealerSum = dealerSum + Dealer.hand[index].value;
             $(`<img class="cardimage" src="${Dealer.hand[index].image}"/>`).appendTo('.dealer-cards');
         } else if (dealerSum < 21 && dealerSum >= 17) {
-            $('.game-text-description').text(`Dealer can't hit past 17.`);
+            $('.game-text-description').text(`Dealer stops at 17.`);
             return;
         } else if (dealerSum === 21) {
             $('.game-text-description').text(`The Dealer has gotten 21. Tough luck.`);
@@ -155,10 +155,11 @@ function checkforVictory() {
 function checkforBlackJack() {
     if (playerSum === 21) {
         Player.blackJack = true;
-        alert('BlackJack');
+        $('.game-text').text('BLACKJACK!');
     }
-    if (playerSum === 21) {
+    if (dealerSum === 21) {
         Dealer.blackJack = true;
+        $('.game-text').text('Dealer got the blackjack. You mad bro?');
     }
 }
 
@@ -175,8 +176,7 @@ function redealCards() {
 
 $('.redeal').click(function () {
     $('.cardimage').remove();
+    $('.game-text').empty();
+    $('.game-text-description').empty();
     redealCards();
-    console.log(myDeck);
-    console.log(Player.hand);
-    console.log(Dealer.hand);
 })
