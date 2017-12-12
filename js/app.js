@@ -55,6 +55,7 @@ dealCards();
 function giveCards(numberOfTimes) {
     for (i = 0; i < numberOfTimes; i++) {
         Player.hand.push(myDeck.pop());
+        playerSum = playerSum + Player.hand[i].value;
     }
     for (i = 0; i < numberOfTimes; i++) {
         Dealer.hand.push(myDeck.pop());
@@ -77,7 +78,8 @@ function dealCards() {
     giveCards(2);
     showPlayerCards();
     console.log(myDeck);
-    console.log(dealerSum);
+    console.log(`Player's Sum: ${playerSum}`);
+    console.log(`Dealer's Sum: ${dealerSum}`);
 }
 
 
@@ -85,23 +87,29 @@ $('.hit').click(function () {
     Player.hand.push(myDeck.pop());
     let index = Player.hand.length - 1;
     $(`<img src="${Player.hand[index].image}"/>`).appendTo('.player-cards');
-    console.log(Player);
+    playerSum = playerSum + Player.hand[index].value;
+    if (playerSum > 21) {
+        alert('Player has busted!')
+        return;
+    }
+    console.log(`Player's Sum: ${playerSum}`);
 })
 
 $('.stay').click(function () {
     Dealer.hand.push(myDeck.pop());
     let index = Dealer.hand.length - 1;
-    if(dealerSum < 17) {
+    if (dealerSum < 17) {
         dealerSum = dealerSum + Dealer.hand[index].value;
         $(`<img src="${Dealer.hand[index].image}"/>`).appendTo('.dealer-cards');
-    } else if(dealerSum < 21 && dealerSum >= 17) {
+    } else if (dealerSum < 21 && dealerSum >= 17) {
         alert('Dealer cant go any further')
         return;
-    } else if(dealerSum === 21) {
+    } else if (dealerSum === 21) {
         alert('21')
     } else {
         alert('Dealer has busted!')
         return;
     }
-    console.log(dealerSum);
+    console.log(`Dealer's Sum: ${dealerSum}`);
 })
+
