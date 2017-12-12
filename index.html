@@ -20,10 +20,21 @@
         </div>
     </nav>
     <div class="wrapper">
-        <div class="player-scoreboard amber accent-2"> Player's Win Count:
-            <p class="player-score"></p>
-            <p class="player-card-sum"></p>
+        <div class="player-scoreboard amber accent-2">
+            <div class="row">
+                <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <p>Player's Win Count:</p>
+                        <p class="player-score"></p>
+                        <p class="player-card-sum"></p>
+                    </div>
+                    <div class="card-action">
+                        <a href="#">Bet</a>
+                    </div>
+                </div>
+            </div>
         </div>
+
         <div class="gameboard light-green darken-4">
             <div class="game-text">Let's Have Some Fun
             </div>
@@ -35,14 +46,30 @@
                 <p class="dealer-cards"></p>
             </div>
             <div class="buttons">
-                <button class="hit btn waves-effect waves-light" type="submit" name="action">Hit<i class="material-icons right">send</i></button>
-                <button class="stay btn waves-effect waves-light" type="submit" name="action">Stay<i class="material-icons right">send</i></button>
-                <button class="redeal btn waves-effect waves-light" type="submit" name="action">Redeal Cards<i class="material-icons right">send</i></button>
+                <button class="hit btn waves-effect waves-light" type="submit" name="action">Hit
+                    <i class="material-icons right">send</i>
+                </button>
+                <button class="stay btn waves-effect waves-light" type="submit" name="action">Stay
+                    <i class="material-icons right">send</i>
+                </button>
+                <button class="redeal btn waves-effect waves-light" type="submit" name="action">Redeal Cards
+                    <i class="material-icons right">send</i>
+                </button>
             </div>
         </div>
-        <div class="dealer-scoreboard">Dealer's Win Count:
-            <p class="dealer-score"></p>
-            <p class="dealer-card-sum"></p>
+        <div class="dealer-scoreboard">
+            <div class="row">
+                <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <p>Player's Win Count:</p>
+                        <p class="dealer-score"></p>
+                        <p class="dealer-card-sum"></p>
+                    </div>
+                    <div class="card-action">
+                        <a href="#">Chips:</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="

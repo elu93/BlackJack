@@ -17,7 +17,7 @@ function Card(r, s, v) {
     this.suit = s
     this.value = v
     this.cardName = `${r}_of_${s}`
-    this.image = `/Users/eric/BlackJack/images/Cards/png/${r}_of_${s}.png`
+    this.image = `./images/Cards/png/${r}_of_${s}.png`
 }
 
 suits = ['diamonds', 'clubs', 'hearts', 'spades']

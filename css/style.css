@@ -58,13 +58,14 @@ body {
 .player-scoreboard {
     width: 20vw;
     height: 100vh;
-    background-color: #ff0000;
+    padding: 20px;
 }
 
 .dealer-scoreboard {
     width: 20vw;
     height: 100vh;
     background-color: #000cff;
+    padding: 20px;
 }
 
 .game-text {
