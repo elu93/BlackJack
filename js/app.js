@@ -1,13 +1,13 @@
 let Player = {
     hand: [],
     counter: 0,
-    bust: false
+    blackJack: false
 }
 
 let Dealer = {
     hand: [],
     counter: 0,
-    bust: false
+    blackJack: false
 }
 
 function Card(r, s, v) {
@@ -77,6 +77,11 @@ function showPlayerCards() {
 function dealCards() {
     giveCards(2);
     showPlayerCards();
+    checkforBlackJack();
+    if(Player.blackJack === true || Dealer.blackJack === true) {
+        checkforVictory();
+    }
+    
     console.log(myDeck);
     console.log(`Player's Sum: ${playerSum}`);
     console.log(`Dealer's Sum: ${dealerSum}`);
@@ -136,3 +141,12 @@ function checkforVictory() {
     }
 }
 
+function checkforBlackJack() {
+    if(playerSum === 21) {
+        Player.blackJack = true;
+        alert('BlackJack');
+    }
+    if(playerSum === 21) {
+        Dealer.blackJack = true;
+    }
+}
