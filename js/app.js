@@ -1,13 +1,15 @@
 let Player = {
     hand: [],
     counter: 0,
-    blackJack: false
+    blackJack: false,
+    checkForVictory: false
 }
 
 let Dealer = {
     hand: [],
     counter: 0,
-    blackJack: false
+    blackJack: false,
+    checkForVictory: false
 }
 
 function Card(r, s, v) {
@@ -48,7 +50,6 @@ function shuffle(array) {
 let myDeck = shuffle(getDeck());
 let dealerSum = 0;
 let playerSum = 0;
-console.log(myDeck);
 dealCards();
 
 
@@ -80,12 +81,9 @@ function dealCards() {
     giveCards(2);
     showPlayerCards();
     checkforBlackJack();
-    if(Player.blackJack === true || Dealer.blackJack === true) {
+    if (Player.blackJack === true || Dealer.blackJack === true) {
         checkforVictory();
     }
-    
-    console.log(myDeck);
-    
 }
 
 
@@ -95,7 +93,7 @@ $('.hit').click(function () {
     $(`<img class="cardimage" src="${Player.hand[index].image}"/>`).appendTo('.player-cards');
     playerSum = playerSum + Player.hand[index].value;
     if (playerSum > 21) {
-        alert('Player has busted!')
+        $('.game-text-description').text('Player has Busted!');
         checkforVictory()
         return;
     }
@@ -115,13 +113,13 @@ function dealCardstoDealer() {
             dealerSum = dealerSum + Dealer.hand[index].value;
             $(`<img class="cardimage" src="${Dealer.hand[index].image}"/>`).appendTo('.dealer-cards');
         } else if (dealerSum < 21 && dealerSum >= 17) {
-            alert('Dealer cant go any further')
+            $('.game-text-description').text(`Dealer can't hit past 17.`);
             return;
         } else if (dealerSum === 21) {
-            alert('21')
+            $('.game-text-description').text(`The Dealer has gotten 21. Tough luck.`);
             return;
         } else if (dealerSum > 21) {
-            alert('Dealer has busted!')
+            $('.game-text-description').text(`The Dealer busted! Get that cash $$$`);
             return;
         }
         $('.dealer-card-sum').text(`Player's score: ${dealerSum}`);
@@ -130,40 +128,41 @@ function dealCardstoDealer() {
 
 function checkforVictory() {
     if (playerSum <= 21 && playerSum > dealerSum) {
-        alert('Player wins!');
+        $('.game-text').text('Player Wins!');
         Player.counter = Player.counter + 1;
         $('.player-score').text(`Player's wins: ${Player.counter}`);
+        return;
     } else if (dealerSum <= 21 && dealerSum > playerSum) {
-        alert('Dealer wins!');
+        $('.game-text').text('Dealer Wins!');
         Dealer.counter = Dealer.counter + 1;
         $('.dealer-score').text(`Dealer's score: ${Dealer.counter}`);
-        console.log(Dealer.counter);
+        return;
     } else if (dealerSum > 21) {
-        alert('Player wins!');
+        $('.game-text').text('Player Wins!');
         Player.counter = Player.counter + 1;
         $('.player-score').text(`Player's score: ${Player.counter}`);
-        console.log(Player.counter);
+        return;
     } else if (playerSum > 21) {
-        alert('Dealer wins!');
+        $('.game-text').text('Dealer Wins!');
         Dealer.counter = Dealer.counter + 1;
         $('.dealer-score').text(`Dealer's score: ${Dealer.counter}`);
-        console.log(Dealer.counter);
+        return;
     } else {
-        alert('Its a tie');
+        $('.game-text').text(`It's a tie! Nothing gained nothing lost. Go big or go home next round.`);
     }
 }
 
 function checkforBlackJack() {
-    if(playerSum === 21) {
+    if (playerSum === 21) {
         Player.blackJack = true;
         alert('BlackJack');
     }
-    if(playerSum === 21) {
+    if (playerSum === 21) {
         Dealer.blackJack = true;
     }
 }
 
-function redealCards () {
+function redealCards() {
     Player.blackJack = false;
     Dealer.blackJack = false;
     Player.hand = [];

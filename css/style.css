@@ -62,3 +62,12 @@ body {
     height: 100vh;
     background-color: #000cff;
 }
+
+.game-text {
+    text-align: center;
+    margin: 50px 0;
+}
+
+.game-text-description {
+    text-align: center;
+}
