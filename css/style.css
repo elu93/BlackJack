@@ -18,10 +18,12 @@ body {
 
 .player-cards {
     text-align: center;
+    margin-bottom: 75px;
 }
 
 .dealer-cards {
     text-align: center;
+    margin-bottom: 75px;
 }
 
 .wrapper {

@@ -57,8 +57,6 @@ function giveCards(numberOfTimes) {
     for (i = 0; i < numberOfTimes; i++) {
         Player.hand.push(myDeck.pop());
         playerSum = playerSum + Player.hand[i].value;
-    }
-    for (i = 0; i < numberOfTimes; i++) {
         Dealer.hand.push(myDeck.pop());
         dealerSum = dealerSum + Dealer.hand[i].value;
     }
@@ -69,11 +67,10 @@ function showPlayerCards() {
         $(`<img class="cardimage" src="${times.image}"/>`).appendTo('.player-cards');
         $('.player-card-sum').text(`Player's score: ${playerSum}`);
     })
-    Dealer.hand.forEach(function (times) {
-        $(`<img class="cardimage" src="${times.image}"/>`).appendTo('.dealer-cards');
-        $('.dealer-card-sum').text(`Dealer's score: ${dealerSum}`);
 
-    })
+    $(`<img class="cardimage" src="${Dealer.hand[0].image}"/>`).appendTo('.dealer-cards');
+    $(`<img class="cardimageBack" src="./images/Cards/png/back.png"/>`).appendTo('.dealer-cards');
+    $('.dealer-card-sum').text(`Dealer's score: ${Dealer.hand[0].value}`);
 }
 
 
@@ -95,6 +92,8 @@ $('.hit').click(function () {
     if (playerSum > 21) {
         $('.game-text-description').text('Player has Busted!');
         checkforVictory()
+        $('.hit').hide();
+        $('.stay').hide();
         return;
     }
     $('.player-card-sum').text(`Player's score: ${playerSum}`);
@@ -103,9 +102,13 @@ $('.hit').click(function () {
 $('.stay').click(function () {
     dealCardstoDealer();
     checkforVictory();
+    $('.stay').hide();
+    $('.hit').hide();
 })
 
 function dealCardstoDealer() {
+    $('.cardimageBack').remove();
+    $(`<img class="cardimage" src="${Dealer.hand[1].image}"/>`).appendTo('.dealer-cards');
     while (dealerSum < 21) {
         Dealer.hand.push(myDeck.pop());
         let index = Dealer.hand.length - 1;
@@ -156,10 +159,14 @@ function checkforBlackJack() {
     if (playerSum === 21) {
         Player.blackJack = true;
         $('.game-text').text('BLACKJACK!');
+        $('.hit').hide();
+        $('.stay').hide();
     }
     if (dealerSum === 21) {
         Dealer.blackJack = true;
         $('.game-text').text('Dealer got the blackjack. You mad bro?');
+        $('.hit').hide();
+        $('.stay').hide();
     }
 }
 
@@ -179,4 +186,6 @@ $('.redeal').click(function () {
     $('.game-text').empty();
     $('.game-text-description').empty();
     redealCards();
+    $('.hit').show();
+    $('.stay').show();
 })
