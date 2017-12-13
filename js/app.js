@@ -65,12 +65,12 @@ function giveCards(numberOfTimes) {
 function showPlayerCards() {
     Player.hand.forEach(function (times) {
         $(`<img class="cardimage" src="${times.image}"/>`).appendTo('.player-cards');
-        $('.player-card-sum').text(`Player's score: ${playerSum}`);
+        $('.player-card-sum').text(`Player's hand: ${playerSum}`);
     })
 
     $(`<img class="cardimage" src="${Dealer.hand[0].image}"/>`).appendTo('.dealer-cards');
     $(`<img class="cardimageBack" src="./images/Cards/png/back.png"/>`).appendTo('.dealer-cards');
-    $('.dealer-card-sum').text(`Dealer's score: ${Dealer.hand[0].value}`);
+    $('.dealer-card-sum').text(`Dealer's hand: ${Dealer.hand[0].value}`);
 }
 
 
@@ -96,10 +96,11 @@ $('.hit').click(function () {
         $('.stay').hide();
         return;
     }
-    $('.player-card-sum').text(`Player's score: ${playerSum}`);
+    $('.player-card-sum').text(`Player's hand: ${playerSum}`);
 })
 
 $('.stay').click(function () {
+    $('.dealer-card-sum').text(`Dealer's hand: ${dealerSum}`);
     dealCardstoDealer();
     checkforVictory();
     $('.stay').hide();
@@ -125,7 +126,7 @@ function dealCardstoDealer() {
             $('.game-text-description').text(`The Dealer busted! Get that cash $$$`);
             return;
         }
-        $('.dealer-card-sum').text(`Player's score: ${dealerSum}`);
+        $('.dealer-card-sum').text(`Dealer's score: ${dealerSum}`);
     }
 }
 
@@ -138,17 +139,17 @@ function checkforVictory() {
     } else if (dealerSum <= 21 && dealerSum > playerSum) {
         $('.game-text').text('Dealer Wins!');
         Dealer.counter = Dealer.counter + 1;
-        $('.dealer-score').text(`Dealer's score: ${Dealer.counter}`);
+        $('.dealer-score').text(`Dealer's wins: ${Dealer.counter}`);
         return;
     } else if (dealerSum > 21) {
         $('.game-text').text('Player Wins!');
         Player.counter = Player.counter + 1;
-        $('.player-score').text(`Player's score: ${Player.counter}`);
+        $('.player-score').text(`Player's wins: ${Player.counter}`);
         return;
     } else if (playerSum > 21) {
         $('.game-text').text('Dealer Wins!');
         Dealer.counter = Dealer.counter + 1;
-        $('.dealer-score').text(`Dealer's score: ${Dealer.counter}`);
+        $('.dealer-score').text(`Dealer's wins: ${Dealer.counter}`);
         return;
     } else {
         $('.game-text').text(`It's a tie! Nothing gained nothing lost. Go big or go home next round.`);
@@ -171,6 +172,7 @@ function checkforBlackJack() {
 }
 
 function redealCards() {
+    $('.cardimageBack').remove();
     Player.blackJack = false;
     Dealer.blackJack = false;
     Player.hand = [];
