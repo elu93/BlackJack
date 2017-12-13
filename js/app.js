@@ -132,27 +132,27 @@ function dealCardstoDealer() {
 
 function checkforVictory() {
     if (playerSum <= 21 && playerSum > dealerSum) {
-        $('.game-text').text('Player Wins!');
+        playerWins();
         Player.counter = Player.counter + 1;
         $('.player-score').text(`Player's wins: ${Player.counter}`);
         return;
     } else if (dealerSum <= 21 && dealerSum > playerSum) {
-        $('.game-text').text('Dealer Wins!');
+        dealerWins();
         Dealer.counter = Dealer.counter + 1;
         $('.dealer-score').text(`Dealer's wins: ${Dealer.counter}`);
         return;
     } else if (dealerSum > 21) {
-        $('.game-text').text('Player Wins!');
+        playerWins();
         Player.counter = Player.counter + 1;
         $('.player-score').text(`Player's wins: ${Player.counter}`);
         return;
     } else if (playerSum > 21) {
-        $('.game-text').text('Dealer Wins!');
+        dealerWins();
         Dealer.counter = Dealer.counter + 1;
         $('.dealer-score').text(`Dealer's wins: ${Dealer.counter}`);
         return;
     } else {
-        $('.game-text').text(`It's a tie! Nothing gained nothing lost. Go big or go home next round.`);
+        swal("TIE!", "lul did you think you were gonna win?", "warning");
     }
 }
 
@@ -191,3 +191,12 @@ $('.redeal').click(function () {
     $('.hit').show();
     $('.stay').show();
 })
+
+
+function playerWins() {
+    swal("Good Job!", "Player Wins!", "success")
+};
+
+function dealerWins() {
+    swal("Dealer Wins", "Awww, the dealer took your money", "error")
+};
