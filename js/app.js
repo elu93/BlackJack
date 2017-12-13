@@ -1,6 +1,7 @@
 let Player = {
     name: null,
     hand: [],
+    chips: 0,
     counter: 0,
     blackJack: false,
     checkForVictory: false
@@ -9,6 +10,7 @@ let Player = {
 let Dealer = {
     hand: [],
     counter: 0,
+    chips: 0,
     blackJack: false,
     checkForVictory: false
 }
@@ -48,6 +50,7 @@ function shuffle(array) {
     return array;
 }
 
+let tableBets = 0;
 let dealerSum = 0;
 let playerSum = 0;
 let myDeck = [];
@@ -64,6 +67,8 @@ $(function () {
         changePlayerName();
         dealCards();
     });
+
+
 
     $('.hit').click(function () {
         Player.hand.push(myDeck.pop());
@@ -94,6 +99,32 @@ $(function () {
         redealCards();
         $('.hit').show();
         $('.stay').show();
+    })
+
+    $('.gamble').click(function () {
+        if (Player.chips === 0) {
+            swal("How much we gambling with today?", {
+                content: "input",
+            }).then((chipCount) => {
+                swal(`All right, ${chipCount} it is.`);
+                Player.chips = parseInt(chipCount);
+                Dealer.chips = Player.chips;
+                givePlayerChips();
+            });
+            $('.gamble').hide();
+        }
+    })
+
+    $('.bet').click(function () {
+        swal("Place your bets. How much?", {
+            content: "input",
+        }).then((betCount) => {
+            Player.chips -= betCount;
+            tableBets = betCount;
+            swal(`$${betCount} it is. You have $${Player.chips} left on the table.`)
+            givePlayerChips();
+        });
+        $('.bet').hide();
     })
 });
 
@@ -130,8 +161,6 @@ function dealCards() {
         showBlackJackPlayer();
     }
 }
-
-
 
 
 function dealCardstoDealer() {
@@ -215,14 +244,21 @@ function redealCards() {
 
 function playerWins() {
     swal("Good Job!", "Player Wins!", "success")
+    Player.chips += tableBets * 2;
+    tableBets = 0;
 };
 
 function dealerWins() {
     swal("Dealer Wins", "Awww, the dealer took your money", "error")
+    tableBets = 0;
 };
 
 function changePlayerName() {
     $('.playerName').text(`${Player.name}'s Scoreboard`);
+}
+
+function givePlayerChips() {
+    $('.player-chips').text(`$${Player.chips} left`);
 }
 
 function showBlackJackPlayer() {
