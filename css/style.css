@@ -37,13 +37,12 @@ body {
 .gameboard {
     width: 60vw;
     height: 100vh;
-    background-color: green;
 }
 
 .player {
     text-align: center;
     display: block;
-    margin: auto;
+    margin-top: 50px;
 }
 
 .dealer {
@@ -66,7 +65,6 @@ body {
 .dealer-scoreboard {
     width: 20vw;
     height: 100vh;
-    background-color: #000cff;
     padding: 20px;
 }
 

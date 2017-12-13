@@ -1,4 +1,5 @@
 let Player = {
+    name: "",
     hand: [],
     counter: 0,
     blackJack: false,
@@ -47,6 +48,18 @@ function shuffle(array) {
     return array;
 }
 
+
+//Creates Player Name
+Player.name = swal("Welcome! Who's playin' BlackJack today?", {
+    content: "input",
+}).then((value) => {
+    swal(`Welcome, ${value}! Let's see if you can make some money today.`);
+});
+
+// document.ready(function(){
+    
+// })
+//initializes page
 let myDeck = shuffle(getDeck());
 let dealerSum = 0;
 let playerSum = 0;
@@ -108,6 +121,7 @@ $('.stay').click(function () {
 })
 
 function dealCardstoDealer() {
+    $('.cardimageBack')
     $('.cardimageBack').remove();
     $(`<img class="cardimage" src="${Dealer.hand[1].image}"/>`).appendTo('.dealer-cards');
     while (dealerSum < 21) {
@@ -134,7 +148,7 @@ function checkforVictory() {
     if (playerSum <= 21 && playerSum > dealerSum) {
         playerWins();
         Player.counter = Player.counter + 1;
-        $('.player-score').text(`Player's wins: ${Player.counter}`);
+        $('.player-score').text(`${playerName}'s wins: ${Player.counter}`);
         return;
     } else if (dealerSum <= 21 && dealerSum > playerSum) {
         dealerWins();
@@ -144,7 +158,7 @@ function checkforVictory() {
     } else if (dealerSum > 21) {
         playerWins();
         Player.counter = Player.counter + 1;
-        $('.player-score').text(`Player's wins: ${Player.counter}`);
+        $('.player-score').text(`${playerName}'s wins: ${Player.counter}`);
         return;
     } else if (playerSum > 21) {
         dealerWins();
