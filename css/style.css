@@ -54,6 +54,7 @@ body {
 .buttons {
     text-align: center;
     display: block;
+    margin: auto;
 }
 
 .player-scoreboard {
@@ -82,7 +83,4 @@ body {
     margin-top: 185px;
 }
 
-p {
-    padding: 20px;
-}
 

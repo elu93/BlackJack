@@ -71,9 +71,10 @@ $(function () {
 
 
     $('.hit').click(function () {
+        $('.bet').hide();
         Player.hand.push(myDeck.pop());
         let index = Player.hand.length - 1;
-        $(`<img class="cardimage" src="${Player.hand[index].image}"/>`).appendTo('.player-cards');
+        $(`<img class="cardimage" src="${Player.hand[index].image}"/>`).appendTo('.player-cards').addClass('animated fadeInRight');
         playerSum = playerSum + Player.hand[index].value;
         if (playerSum > 21) {
             checkforVictory()
@@ -81,11 +82,11 @@ $(function () {
             $('.stay').hide();
             return;
         }
-        $('.player-card-sum').text(`Player's hand: ${playerSum}`);
+        $('.player-card-sum').text(playerSum);
     })
 
     $('.stay').click(function () {
-        $('.dealer-card-sum').text(`Dealer's hand: ${dealerSum}`);
+        $('.dealer-card-sum').text(dealerSum);
         dealCardstoDealer();
         checkforVictory();
         $('.stay').hide();
@@ -153,12 +154,12 @@ function giveCards(numberOfTimes) {
 function showPlayerCards() {
     Player.hand.forEach(function (times) {
         $(`<img class="cardimage" src="${times.image}"/>`).appendTo('.player-cards').addClass('animated fadeInDown');
-        $('.player-card-sum').text(`Player's hand: ${playerSum}`);
+        $('.player-card-sum').text(playerSum);
     })
 
     $(`<img class="cardimage" src="${Dealer.hand[0].image}"/>`).appendTo('.dealer-cards').addClass('animated fadeInUp');
     $(`<img class="cardimageBack" src="./images/Cards/png/back.png"/>`).appendTo('.dealer-cards').addClass('animated fadeInUp');
-    $('.dealer-card-sum').text(`Dealer's hand: ${Dealer.hand[0].value}`);
+    $('.dealer-card-sum').text(Dealer.hand[0].value);
 }
 
 
@@ -189,7 +190,7 @@ function dealCardstoDealer() {
         } else if (dealerSum > 21) {
             return;
         }
-        $('.dealer-card-sum').text(`Dealer's score: ${dealerSum}`);
+        $('.dealer-card-sum').text(dealerSum);
     }
 }
 
@@ -197,22 +198,22 @@ function checkforVictory() {
     if (playerSum <= 21 && playerSum > dealerSum) {
         playerWins();
         Player.counter = Player.counter + 1;
-        $('.player-score').text(`${Player.name}'s wins: ${Player.counter}`);
+        $('.player-score').text(Player.counter);
         return;
     } else if (dealerSum <= 21 && dealerSum > playerSum) {
         dealerWins();
         Dealer.counter = Dealer.counter + 1;
-        $('.dealer-score').text(`Dealer's wins: ${Dealer.counter}`);
+        $('.dealer-score').text(Dealer.counter);
         return;
     } else if (dealerSum > 21) {
         playerWins();
         Player.counter = Player.counter + 1;
-        $('.player-score').text(`${Player.name}'s wins: ${Player.counter}`);
+        $('.player-score').text(Player.counter);
         return;
     } else if (playerSum > 21) {
         dealerWins();
         Dealer.counter = Dealer.counter + 1;
-        $('.dealer-score').text(`Dealer's wins: ${Dealer.counter}`);
+        $('.dealer-score').text(Dealer.counter);
         return;
     } else {
         swal("TIE!", "lul did you think you were gonna win?", "warning");
@@ -246,7 +247,12 @@ function redealCards() {
     playerSum = 0;
     dealerSum = 0;
     myDeck = shuffle(getDeck());
-    $('.bet').show();
+    if(Player.chips){
+        $('.bet').show();
+    } else {
+        $('.bet').hide();
+    }
+    
     dealCards();
 }
 
@@ -254,9 +260,9 @@ function redealCards() {
 
 
 function playerWins() {
-    swal("Congratulations!", "You win, here", "success")
+    swal("Congratulations!", "You got one on the dealer this time", "success")
     Player.chips += tableBets * 2;
-    $('.player-chips').text(`$${Player.chips} left`);
+    $('.player-chips').text(`$${Player.chips}`);
     tableBets = 0;
 };
 
@@ -270,13 +276,13 @@ function changePlayerName() {
 }
 
 function givePlayerChips() {
-    $('.player-chips').text(`$${Player.chips} left`);
+    $('.player-chips').text(`$${Player.chips}`);
 }
 
 function showBlackJackPlayer() {
     swal("BLACKJACK!", "WINNER WINNER CHICKEN DINNER", "success")
     Player.counter = Player.counter + 1;
-    $('.player-score').text(`${Player.name}'s wins: ${Player.counter}`)
+    $('.player-score').text(Player.counter);
 }
 
 function showBlackJackDealer() {
