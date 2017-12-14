@@ -156,7 +156,6 @@ function showPlayerCards() {
         $(`<img class="cardimage" src="${times.image}"/>`).appendTo('.player-cards').addClass('animated fadeInDown');
         $('.player-card-sum').text(playerSum);
     })
-
     $(`<img class="cardimage" src="${Dealer.hand[0].image}"/>`).appendTo('.dealer-cards').addClass('animated fadeInUp');
     $(`<img class="cardimageBack" src="./images/Cards/png/back.png"/>`).appendTo('.dealer-cards').addClass('animated fadeInUp');
     $('.dealer-card-sum').text(Dealer.hand[0].value);
@@ -247,12 +246,11 @@ function redealCards() {
     playerSum = 0;
     dealerSum = 0;
     myDeck = shuffle(getDeck());
-    if(Player.chips){
+    if (Player.chips) {
         $('.bet').show();
     } else {
         $('.bet').hide();
     }
-    
     dealCards();
 }
 
@@ -262,8 +260,10 @@ function redealCards() {
 function playerWins() {
     swal("Congratulations!", "You got one on the dealer this time", "success")
     Player.chips += tableBets * 2;
-    $('.player-chips').text(`$${Player.chips}`);
-    tableBets = 0;
+    if(Player.chips > 0){
+        $('.player-chips').text(`$${Player.chips}`);
+        tableBets = 0;
+    }
 };
 
 function dealerWins() {
