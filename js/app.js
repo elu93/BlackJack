@@ -54,7 +54,7 @@ let tableBets = 0;
 let dealerSum = 0;
 let playerSum = 0;
 let myDeck = [];
-
+$('.bet').hide();
 
 
 $(function () {
@@ -112,19 +112,29 @@ $(function () {
                 givePlayerChips();
             });
             $('.gamble').hide();
+            $('.bet').show();
         }
     })
 
     $('.bet').click(function () {
-        swal("Place your bets. How much?", {
-            content: "input",
-        }).then((betCount) => {
-            Player.chips -= betCount;
-            tableBets = betCount;
-            swal(`$${betCount} it is. You have $${Player.chips} left on the table.`)
-            givePlayerChips();
-        });
-        $('.bet').hide();
+        if (Player.chips > 0) {
+            swal("Place your bets. How much?", {
+                content: "input",
+            }).then((betCount) => {
+                if (Player.chips < betCount) {
+                    swal("NOPE", "Can't bet with money you don't have", "warning");
+                    $('.bet').show();
+                } else {
+                    Player.chips -= betCount;
+                    tableBets = betCount;
+                    swal(`$${betCount} it is. You have $${Player.chips} left on the table.`)
+                    givePlayerChips();
+                }
+            });
+            $('.bet').hide();
+        } else {
+            swal("YOU'RE BROKE", "You lost all your monies.", "warning")
+        }
     })
 });
 
@@ -142,12 +152,12 @@ function giveCards(numberOfTimes) {
 
 function showPlayerCards() {
     Player.hand.forEach(function (times) {
-        $(`<img class="cardimage" src="${times.image}"/>`).appendTo('.player-cards');
+        $(`<img class="cardimage" src="${times.image}"/>`).appendTo('.player-cards').addClass('animated fadeInDown');
         $('.player-card-sum').text(`Player's hand: ${playerSum}`);
     })
 
-    $(`<img class="cardimage" src="${Dealer.hand[0].image}"/>`).appendTo('.dealer-cards');
-    $(`<img class="cardimageBack" src="./images/Cards/png/back.png"/>`).appendTo('.dealer-cards');
+    $(`<img class="cardimage" src="${Dealer.hand[0].image}"/>`).appendTo('.dealer-cards').addClass('animated fadeInUp');
+    $(`<img class="cardimageBack" src="./images/Cards/png/back.png"/>`).appendTo('.dealer-cards').addClass('animated fadeInUp');
     $('.dealer-card-sum').text(`Dealer's hand: ${Dealer.hand[0].value}`);
 }
 
@@ -166,14 +176,14 @@ function dealCards() {
 function dealCardstoDealer() {
     $('.cardimageBack')
     $('.cardimageBack').remove();
-    $(`<img class="cardimage" src="${Dealer.hand[1].image}"/>`).appendTo('.dealer-cards');
+    $(`<img class="cardimage" src="${Dealer.hand[1].image}"/>`).appendTo('.dealer-cards').addClass('animated flipInX');
     while (dealerSum < 21) {
         Dealer.hand.push(myDeck.pop());
         let index = Dealer.hand.length - 1;
         checkDealerForBlackJack();
         if (dealerSum < 17) {
             dealerSum = dealerSum + Dealer.hand[index].value;
-            $(`<img class="cardimage" src="${Dealer.hand[index].image}"/>`).appendTo('.dealer-cards');
+            $(`<img class="cardimage" src="${Dealer.hand[index].image}"/>`).appendTo('.dealer-cards').addClass('animated slideInRight');
         } else if (dealerSum < 21 && dealerSum >= 17) {
             return;
         } else if (dealerSum > 21) {
@@ -236,6 +246,7 @@ function redealCards() {
     playerSum = 0;
     dealerSum = 0;
     myDeck = shuffle(getDeck());
+    $('.bet').show();
     dealCards();
 }
 
@@ -243,8 +254,9 @@ function redealCards() {
 
 
 function playerWins() {
-    swal("Good Job!", "Player Wins!", "success")
+    swal("Congratulations!", "You win, here", "success")
     Player.chips += tableBets * 2;
+    $('.player-chips').text(`$${Player.chips} left`);
     tableBets = 0;
 };
 
