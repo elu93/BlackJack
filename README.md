@@ -9,7 +9,7 @@ After each game where either the player or dealer wins, the deck will be reshuff
 There will be a score to keep track of the player or dealer's win total.
 
 # Project Link:
-https://github.com/elu93/BlackJack
+http://blackjack-eric-remix.bitballoon.com/#
 
 # Trello Link:
 https://trello.com/b/2VzTJxc0/wdi-project-1-blackjack
@@ -20,6 +20,7 @@ https://trello.com/b/2VzTJxc0/wdi-project-1-blackjack
 * Microsoft Visual Studio
 * Google Fonts
 * Animate CSS
+* Toast.js
 
 # Version 2
 
